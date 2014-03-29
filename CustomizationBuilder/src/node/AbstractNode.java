@@ -1,12 +1,26 @@
 package node;
 
-public abstract class AbstractNode {
+import java.util.ArrayList;
 
+public abstract class AbstractNode {
+	
+	// Name
+	protected String name;
+	
 	// Comment
 	protected String comment;
 	
 	// ShowLogic
 	protected String showLogic;
+	
+
+	
+	public String getName() {
+		return name;
+	}
+	public void setName(String name) {
+		this.name = name;
+	}
 	
 	public String getComment() {
 		return comment;
@@ -22,7 +36,8 @@ public abstract class AbstractNode {
 		this.showLogic = showLogic;
 	}
 	
-	public void write() {
-		
-	}
+
+	
+	
 }
+
