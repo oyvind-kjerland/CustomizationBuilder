@@ -8,7 +8,6 @@ public abstract class AbstractNode {
 	protected String comment;
 	
 	protected String showLogic;
-
 	
 	public String getName() {
 		return name;
