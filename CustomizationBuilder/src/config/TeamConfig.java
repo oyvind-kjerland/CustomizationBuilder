@@ -1,8 +1,7 @@
 package config;
 
-import java.io.Serializable;
 
-public class TeamConfig implements Serializable {
+public class TeamConfig {
 
 	private String name;
 	

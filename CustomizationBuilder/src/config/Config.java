@@ -1,13 +1,12 @@
 package config;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 
-public class Config implements Serializable {
+public class Config {
 
 	private String name;
 	
-	private ArrayList<TeamConfig> teamConfigs;
+	private ArrayList<TeamConfig> teamConfigs = new ArrayList<TeamConfig>();
 	
 	public String getName() {
 		return name;
@@ -24,5 +23,8 @@ public class Config implements Serializable {
 	}
 	public ArrayList<TeamConfig> getTeamConfigs() {
 		return teamConfigs;
+	}
+	public void setTeamConfigs(ArrayList<TeamConfig> teamConfigs) {
+		this.teamConfigs = teamConfigs;
 	}
 }
