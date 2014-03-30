@@ -12,7 +12,10 @@ import java.io.IOException;
 public class ConfigManager {
 
 	
+	public final String ConfigPath = "config/%.xml";
+	
 	public void writeConfig(Config config, String filename) throws IOException {
+		filename = ConfigPath.replaceAll("%", filename);
 		FileOutputStream out = new FileOutputStream(filename);
 		BufferedOutputStream bufferedOut = new BufferedOutputStream(out);
 		XMLEncoder encoder = new XMLEncoder(bufferedOut);
@@ -23,6 +26,7 @@ public class ConfigManager {
 	}
 	
 	public Config readConfig(String filename) throws IOException {
+		filename = ConfigPath.replaceAll("%", filename);
 		FileInputStream in = new FileInputStream(filename);
 		BufferedInputStream bufferedIn = new BufferedInputStream(in);
 		XMLDecoder decoder = new XMLDecoder(bufferedIn);
