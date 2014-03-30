@@ -20,7 +20,7 @@ public class MainFrame extends JFrame {
 	
 	public void showMainPanel() {
 		
-		MainPanel mainPanel = new MainPanel(customizationBuilder);
+		MainPanel mainPanel = new MainPanel(customizationBuilder, this);
 		this.add(mainPanel);
 		this.pack();
 		//this.revalidate();
