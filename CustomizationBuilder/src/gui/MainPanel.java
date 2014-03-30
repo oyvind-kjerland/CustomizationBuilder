@@ -22,9 +22,15 @@ public class MainPanel extends GenericPanel {
 				selectConfig();
 			}
 		});
+		add(selectConfigButton);
 		
 		JButton editConfigButton = new JButton("Edit Config");
-		add(selectConfigButton);
+		editConfigButton.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				showConfigPanel();	
+			}
+		});
 		add(editConfigButton);
 		
 	}
@@ -32,7 +38,10 @@ public class MainPanel extends GenericPanel {
 	
 	private void selectConfig() {		
 		JFileChooser fc = new JFileChooser();
-		fc.showOpenDialog(this.getParent());
+		fc.showOpenDialog(mainFrame);
 	}
 	
+	private void showConfigPanel() {
+		mainFrame.showConfigPanel();
+	}
 }
