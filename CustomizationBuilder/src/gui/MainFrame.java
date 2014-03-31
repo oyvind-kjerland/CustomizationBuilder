@@ -10,6 +10,7 @@ import builder.CustomizationBuilder;
 
 public class MainFrame extends JFrame {
 
+
 	private CustomizationBuilder customizationBuilder;
 	private Container contentPane;
 	
