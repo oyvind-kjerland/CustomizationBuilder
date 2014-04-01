@@ -33,12 +33,15 @@ public class ConfigPanel extends GenericPanel {
 	private WeaponConfigPanel weaponConfigPanel;
 	
 	
-	// Current Config path
-	private File currentConfigFile;
+	// Current Config file
+	private File configFile;
 	
+	// Current Config
+	private Config config;
 	
 	// Cache ConfigManager reference
 	private ConfigManager configManager;
+	
 	
 	
 	public ConfigPanel(CustomizationBuilder customizationBuilder, MainFrame mainFrame) {
@@ -47,6 +50,10 @@ public class ConfigPanel extends GenericPanel {
 		
 		makeMenuBar();
 		makeTabs();
+		
+		// Create empty config
+		config = new Config();
+		setConfig(config);
 
 	}
 	
@@ -160,7 +167,7 @@ public class ConfigPanel extends GenericPanel {
 			File configFile = fc.getSelectedFile();
 			try {
 				Config config = configManager.readConfig(configFile);
-				currentConfigFile = configFile;
+				this.configFile = configFile;
 				mainFrame.setTitle(configFile.getName());
 				setConfig(config);
 			} catch (IOException e) {
@@ -170,10 +177,33 @@ public class ConfigPanel extends GenericPanel {
 	}
 	
 	private void saveConfig() {
-		
+		if (configFile != null) {
+			try {
+				configManager.writeConfig(config, configFile);
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		} else {
+			saveConfigAs();
+		}
 	}
 	
 	private void saveConfigAs() {
+		JFileChooser fc = new ConfigFileChooser();
+		File dir = new File("config");
+		fc.setCurrentDirectory(dir);
+		int option = fc.showSaveDialog(mainFrame);
+		
+		if (option == JFileChooser.APPROVE_OPTION) {
+			File configFile = fc.getSelectedFile();
+			try {
+				configManager.writeConfig(config, configFile);
+				this.configFile = configFile;
+				mainFrame.setTitle(configFile.getName());
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
 		
 	}
 	
