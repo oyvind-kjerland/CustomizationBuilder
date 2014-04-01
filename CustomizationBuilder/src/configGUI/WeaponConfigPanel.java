@@ -1,8 +1,10 @@
 package configGUI;
 
+import javax.swing.JPanel;
+
 import config.WeaponConfig;
 
-public class WeaponConfigPanel {
+public class WeaponConfigPanel extends JPanel {
 
 	
 	private WeaponConfig model;

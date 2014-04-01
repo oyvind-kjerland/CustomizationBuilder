@@ -1,8 +1,10 @@
 package configGUI;
 
+import javax.swing.JPanel;
+
 import config.TeamConfig;
 
-public class TeamConfigPanel {
+public class TeamConfigPanel extends JPanel {
 
 	private TeamConfig model;
 	

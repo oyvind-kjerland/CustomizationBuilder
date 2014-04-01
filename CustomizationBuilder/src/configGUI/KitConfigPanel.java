@@ -1,8 +1,10 @@
 package configGUI;
 
+import javax.swing.JPanel;
+
 import config.KitConfig;
 
-public class KitConfigPanel {
+public class KitConfigPanel extends JPanel {
 
 	private KitConfig model;
 	
