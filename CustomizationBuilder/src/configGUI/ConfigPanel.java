@@ -3,14 +3,20 @@ package configGUI;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
+import java.io.IOException;
 
 import javax.swing.JButton;
+import javax.swing.JFileChooser;
 import javax.swing.JLabel;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
+
+import config.Config;
+import config.ConfigManager;
 
 import builder.CustomizationBuilder;
 import gui.GenericPanel;
@@ -28,8 +34,17 @@ public class ConfigPanel extends GenericPanel {
 	private WeaponConfigPanel weaponConfigPanel;
 	
 	
+	// Current Config path
+	private File currentConfigFile;
+	
+	
+	// Cache ConfigManager reference
+	private ConfigManager configManager;
+	
+	
 	public ConfigPanel(CustomizationBuilder customizationBuilder, MainFrame mainFrame) {
 		super(customizationBuilder, mainFrame);
+		configManager = customizationBuilder.getConfigManager();
 		
 		makeMenuBar();
 		makeTabs();
@@ -82,6 +97,18 @@ public class ConfigPanel extends GenericPanel {
 		fileMenu.add(menuItem);
 		
 		
+		fileMenu.addSeparator();
+		
+		
+		menuItem = new JMenuItem("Exit");
+		menuItem.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				exit();
+			}
+		});
+		fileMenu.add(menuItem);
+		
 		menuBar.add(fileMenu);
 		mainFrame.setJMenuBar(menuBar);
 	}
@@ -95,8 +122,8 @@ public class ConfigPanel extends GenericPanel {
 		tabs.setPreferredSize(panelSize);
 		
 		// General tab
-		generalConfigPanel = new GeneralConfigPanel();
-		tabs.addTab(formatTab("General"), generalConfigPanel);
+		//generalConfigPanel = new GeneralConfigPanel();
+		//tabs.addTab(formatTab("General"), generalConfigPanel);
 		
 		// Team tab
 		teamConfigPanel = new TeamConfigPanel(); 
@@ -117,6 +144,9 @@ public class ConfigPanel extends GenericPanel {
 	}
 	
 	
+	private void setConfig(Config config) {
+		
+	}
 	
 	
 	private void newConfig() {
@@ -124,7 +154,22 @@ public class ConfigPanel extends GenericPanel {
 	}
 	
 	private void openConfig() {
+		JFileChooser fc = new JFileChooser();
+		File dir = new File("config");
+		fc.setCurrentDirectory(dir);
+		int option = fc.showOpenDialog(mainFrame);
 		
+		if (option == JFileChooser.APPROVE_OPTION) {
+			File configFile = fc.getSelectedFile();
+			try {
+				Config config = configManager.readConfig(configFile);
+				currentConfigFile = configFile;
+				mainFrame.setTitle(configFile.getName());
+				setConfig(config);
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
 	}
 	
 	private void saveConfig() {
@@ -133,6 +178,12 @@ public class ConfigPanel extends GenericPanel {
 	
 	private void saveConfigAs() {
 		
+	}
+	
+	private void exit() {
+		// Cleanup
+		mainFrame.setJMenuBar(null);
+		showMainPanel();
 	}
 	
 	private void showMainPanel() {

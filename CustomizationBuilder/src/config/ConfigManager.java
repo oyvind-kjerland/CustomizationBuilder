@@ -4,6 +4,7 @@ import java.beans.XMLDecoder;
 import java.beans.XMLEncoder;
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -14,9 +15,8 @@ public class ConfigManager {
 	
 	public final String ConfigPath = "config/%.xml";
 	
-	public void writeConfig(Config config, String filename) throws IOException {
-		filename = ConfigPath.replaceAll("%", filename);
-		FileOutputStream out = new FileOutputStream(filename);
+	public void writeConfig(Config config, File file) throws IOException {
+		FileOutputStream out = new FileOutputStream(file);
 		BufferedOutputStream bufferedOut = new BufferedOutputStream(out);
 		XMLEncoder encoder = new XMLEncoder(bufferedOut);
 		encoder.writeObject(config);
@@ -25,9 +25,8 @@ public class ConfigManager {
 		out.close();
 	}
 	
-	public Config readConfig(String filename) throws IOException {
-		filename = ConfigPath.replaceAll("%", filename);
-		FileInputStream in = new FileInputStream(filename);
+	public Config readConfig(File file) throws IOException {
+		FileInputStream in = new FileInputStream(file);
 		BufferedInputStream bufferedIn = new BufferedInputStream(in);
 		XMLDecoder decoder = new XMLDecoder(bufferedIn);
 		Config config = (Config) decoder.readObject();
