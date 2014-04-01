@@ -2,12 +2,15 @@ package configGUI;
 
 import javax.swing.JPanel;
 
+import config.Config;
 import config.WeaponConfig;
 
 public class WeaponConfigPanel extends JPanel {
 
 	
 	private WeaponConfig model;
+	private Config config;
+	
 	
 	public WeaponConfigPanel() {
 		
@@ -27,4 +30,8 @@ public class WeaponConfigPanel extends JPanel {
 		this.model = model;
 	}
 	
+	
+	public void setConfig(Config config) {
+		
+	}
 }

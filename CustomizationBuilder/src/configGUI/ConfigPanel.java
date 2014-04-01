@@ -140,7 +140,9 @@ public class ConfigPanel extends GenericPanel {
 	
 	
 	private void setConfig(Config config) {
-		
+		teamConfigPanel.setConfig(config);
+		kitConfigPanel.setConfig(config);
+		weaponConfigPanel.setConfig(config);
 	}
 	
 	

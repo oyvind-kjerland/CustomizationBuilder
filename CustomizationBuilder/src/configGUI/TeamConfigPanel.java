@@ -2,11 +2,13 @@ package configGUI;
 
 import javax.swing.JPanel;
 
+import config.Config;
 import config.TeamConfig;
 
 public class TeamConfigPanel extends JPanel {
 
 	private TeamConfig model;
+	private Config config;
 	
 	public TeamConfigPanel() {
 		
@@ -25,5 +27,7 @@ public class TeamConfigPanel extends JPanel {
 		this.model = model;
 	}
 	
-	
+	public void setConfig(Config config) {
+		
+	}
 }
