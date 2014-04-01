@@ -12,6 +12,7 @@ import javax.swing.JLabel;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
 
@@ -52,8 +53,7 @@ public class ConfigPanel extends GenericPanel {
 		makeTabs();
 		
 		// Create empty config
-		config = new Config();
-		setConfig(config);
+		newConfig();
 
 	}
 	
@@ -154,6 +154,24 @@ public class ConfigPanel extends GenericPanel {
 	
 	
 	private void newConfig() {
+		if (configFile != null) {
+			int response = JOptionPane.showConfirmDialog(this, 
+					"Do you wish to save changes to the current Config?",
+					"Save changes", JOptionPane.YES_NO_CANCEL_OPTION,
+					JOptionPane.WARNING_MESSAGE);
+			if (response == JOptionPane.YES_OPTION) {
+				saveConfig();
+			} else if (response == JOptionPane.NO_OPTION) {
+				// Do nothing
+			} else {
+				return;
+			}
+		}
+		
+		config = new Config();
+		configFile = null;
+		mainFrame.setTitle("New Config");
+		setConfig(config);
 		
 	}
 	
