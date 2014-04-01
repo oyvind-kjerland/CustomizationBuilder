@@ -28,7 +28,6 @@ public class ConfigPanel extends GenericPanel {
 	private static final Dimension panelSize = new Dimension(500, 300);
 	
 	// Tab panels
-	private GeneralConfigPanel generalConfigPanel;
 	private TeamConfigPanel teamConfigPanel;
 	private KitConfigPanel kitConfigPanel;
 	private WeaponConfigPanel weaponConfigPanel;
@@ -120,10 +119,6 @@ public class ConfigPanel extends GenericPanel {
 		
 		JPanel tabPanel;
 		tabs.setPreferredSize(panelSize);
-		
-		// General tab
-		//generalConfigPanel = new GeneralConfigPanel();
-		//tabs.addTab(formatTab("General"), generalConfigPanel);
 		
 		// Team tab
 		teamConfigPanel = new TeamConfigPanel(); 
