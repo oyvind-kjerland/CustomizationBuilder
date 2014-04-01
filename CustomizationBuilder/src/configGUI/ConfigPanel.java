@@ -87,9 +87,7 @@ public class ConfigPanel extends GenericPanel {
 		JPanel tabPanel;
 		
 		// General tab
-		tabPanel = new JPanel();
-		tabPanel.setPreferredSize(panelSize);
-		tabs.addTab(formatTab("General"), tabPanel);
+		tabs.addTab(formatTab("General"), new GeneralConfigPanel());
 		
 		// Team tab
 		tabPanel = new JPanel();
