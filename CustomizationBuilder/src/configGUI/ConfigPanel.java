@@ -21,6 +21,13 @@ public class ConfigPanel extends GenericPanel {
 	
 	private static final Dimension panelSize = new Dimension(500, 300);
 	
+	// Tab panels
+	private GeneralConfigPanel generalConfigPanel;
+	private TeamConfigPanel teamConfigPanel;
+	private KitConfigPanel kitConfigPanel;
+	private WeaponConfigPanel weaponConfigPanel;
+	
+	
 	public ConfigPanel(CustomizationBuilder customizationBuilder, MainFrame mainFrame) {
 		super(customizationBuilder, mainFrame);
 		
@@ -85,29 +92,24 @@ public class ConfigPanel extends GenericPanel {
 		
 		
 		JPanel tabPanel;
+		tabs.setPreferredSize(panelSize);
 		
 		// General tab
-		tabs.addTab(formatTab("General"), new GeneralConfigPanel());
+		generalConfigPanel = new GeneralConfigPanel();
+		tabs.addTab(formatTab("General"), generalConfigPanel);
 		
 		// Team tab
-		tabPanel = new JPanel();
-		tabPanel.setPreferredSize(panelSize);
-		tabs.addTab(formatTab("Team"), tabPanel);
+		teamConfigPanel = new TeamConfigPanel(); 
+		tabs.addTab(formatTab("Team"), teamConfigPanel);
 		
 		// Kit tab
-		tabPanel = new JPanel();
-		tabPanel.setPreferredSize(panelSize);
-		tabs.addTab(formatTab("Kit"), tabPanel);
+		kitConfigPanel = new KitConfigPanel();
+		tabs.addTab(formatTab("Kit"), kitConfigPanel);
 		
 		// Weapon tab
-		tabPanel = new JPanel();
-		tabPanel.setPreferredSize(panelSize);
-		tabs.addTab(formatTab("Weapon"), tabPanel);
+		weaponConfigPanel = new WeaponConfigPanel();
+		tabs.addTab(formatTab("Weapon"), weaponConfigPanel);
 		
-		// Part tab
-		tabPanel = new JPanel();
-		tabPanel.setPreferredSize(panelSize);
-		tabs.addTab(formatTab("Part"), tabPanel);
 	}
 	
 	private String formatTab(String name) {
