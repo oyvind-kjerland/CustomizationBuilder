@@ -147,6 +147,7 @@ public class ConfigPanel extends GenericPanel {
 	
 	
 	private void setConfig(Config config) {
+		this.config = config;
 		teamConfigPanel.setConfig(config);
 		kitConfigPanel.setConfig(config);
 		weaponConfigPanel.setConfig(config);
