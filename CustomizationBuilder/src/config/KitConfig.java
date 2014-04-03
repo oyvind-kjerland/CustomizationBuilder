@@ -26,4 +26,8 @@ public class KitConfig {
 	public void setWeaponConfigs(ArrayList<WeaponConfig> weaponConfigs) {
 		this.weaponConfigs = weaponConfigs;
 	}
+	
+	public String toString() {
+		return type.name();
+	}
 }
