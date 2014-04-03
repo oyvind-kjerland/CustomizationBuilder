@@ -3,12 +3,17 @@ package configGUI;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.FocusEvent;
+import java.awt.event.FocusListener;
 
 import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JPanel;
+import javax.swing.JTextField;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 
 import config.Config;
 import config.TeamConfig;
@@ -18,9 +23,12 @@ public class TeamConfigPanel extends JPanel {
 	private TeamConfig model;
 	private Config config;
 	
-	
+	// TeamList
 	private JList<TeamConfig> teamList;
 	private DefaultListModel<TeamConfig> teamListModel;
+	
+	// TeamInfo
+	private JTextField nameText;
 	
 	public TeamConfigPanel() {
 		makeTeamList();	
@@ -39,14 +47,18 @@ public class TeamConfigPanel extends JPanel {
 		
 		// Label
 		JLabel topLabel = new JLabel("Select Team");
-		teamListPanel.add(topLabel);
 		
 		// List
 		teamList = new JList();
 		teamList.setPreferredSize(new Dimension(200,190));
 		teamListModel = new DefaultListModel<TeamConfig>();
 		teamList.setModel(teamListModel);
-		teamListPanel.add(teamList);
+		teamList.addListSelectionListener(new ListSelectionListener() {
+			@Override
+			public void valueChanged(ListSelectionEvent e) {
+				selectTeam();
+			}
+		});
 		
 		// New button
 		JButton newButton = new JButton("New");
@@ -56,7 +68,6 @@ public class TeamConfigPanel extends JPanel {
 				newTeam();
 			}
 		});
-		teamListPanel.add(newButton);
 		
 		// Delete button
 		JButton deleteButton = new JButton("Delete");
@@ -66,13 +77,43 @@ public class TeamConfigPanel extends JPanel {
 				deleteTeam();
 			}
 		});
+
+		
+		teamListPanel.add(topLabel);
+		teamListPanel.add(teamList);
+		teamListPanel.add(newButton);
 		teamListPanel.add(deleteButton);
+	
 	}
 
 	public void makeTeamInfo() {
 		JPanel teamInfoPanel = new JPanel();
 		teamInfoPanel.setPreferredSize(new Dimension(250, 250));
 		add(teamInfoPanel);
+		
+		// Name
+		JLabel nameLabel = new JLabel("Name:");
+		nameText = new JTextField(20);
+		nameText.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				updateTeamName();
+			}
+		});
+		nameText.addFocusListener(new FocusListener() {
+			@Override
+			public void focusLost(FocusEvent arg0) {
+				updateTeamName();
+			}
+
+			@Override
+			public void focusGained(FocusEvent e) {
+			}
+		});
+		
+		teamInfoPanel.add(nameLabel);
+		teamInfoPanel.add(nameText);
+		
 	}
 	
 	public TeamConfig getModel() {
@@ -81,6 +122,11 @@ public class TeamConfigPanel extends JPanel {
 	
 	public void setModel(TeamConfig model) {
 		this.model = model;
+		if (model == null) {
+			nameText.setText("");
+		} else {
+			nameText.setText(model.getName());
+		}
 	}
 	
 	public void setConfig(Config config) {
@@ -91,14 +137,25 @@ public class TeamConfigPanel extends JPanel {
 		}
 	}
 	
-	public void newTeam() {
+	private void updateTeamName() {
+		String name = nameText.getText();
+		model.setName(name);
+		teamList.repaint();
+	}
+	
+	private void selectTeam() {
+		TeamConfig teamConfig = teamList.getSelectedValue();
+		setModel(teamConfig);
+	}
+	
+	private void newTeam() {
 		TeamConfig teamConfig = new TeamConfig();
 		teamConfig.setName("New Config");
 		config.addTeamConfig(teamConfig);
 		teamListModel.addElement(teamConfig);
 	}
 	
-	public void deleteTeam() {
+	private void deleteTeam() {
 		TeamConfig teamConfig = teamList.getSelectedValue();
 		if (teamConfig != null) {
 			teamListModel.removeElement(teamConfig);
