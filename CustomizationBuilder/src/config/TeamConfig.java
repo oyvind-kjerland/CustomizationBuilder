@@ -28,5 +28,8 @@ public class TeamConfig {
 		this.kitConfigs = kitConfigs;
 	}
 	
+	public String toString() {
+		return name;
+	}
 	
 }
