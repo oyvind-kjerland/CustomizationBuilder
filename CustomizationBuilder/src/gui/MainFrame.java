@@ -23,7 +23,7 @@ public class MainFrame extends JFrame {
 		setTitle("CustomizationBuilder");
 		setVisible(true);
 		showMainPanel();
-		
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	}
 	
 	
