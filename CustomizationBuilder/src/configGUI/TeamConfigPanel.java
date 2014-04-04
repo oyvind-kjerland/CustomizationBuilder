@@ -11,6 +11,7 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
@@ -48,9 +49,11 @@ public class TeamConfigPanel extends JPanel {
 		// Label
 		JLabel topLabel = new JLabel("Select Team");
 		
+		
+		
 		// List
-		teamList = new JList();
-		teamList.setPreferredSize(new Dimension(200,190));
+		teamList = new JList<TeamConfig>();
+		//teamList.setPreferredSize(new Dimension(200,190));
 		teamListModel = new DefaultListModel<TeamConfig>();
 		teamList.setModel(teamListModel);
 		teamList.addListSelectionListener(new ListSelectionListener() {
@@ -59,6 +62,10 @@ public class TeamConfigPanel extends JPanel {
 				selectTeam();
 			}
 		});
+		
+		JScrollPane scrollPane = new JScrollPane(teamList);
+		scrollPane.setPreferredSize(new Dimension(200, 190));
+
 		
 		// New button
 		JButton newButton = new JButton("New");
@@ -80,7 +87,7 @@ public class TeamConfigPanel extends JPanel {
 
 		
 		teamListPanel.add(topLabel);
-		teamListPanel.add(teamList);
+		teamListPanel.add(scrollPane);
 		teamListPanel.add(newButton);
 		teamListPanel.add(deleteButton);
 	
@@ -121,10 +128,13 @@ public class TeamConfigPanel extends JPanel {
 	}
 	
 	public void setModel(TeamConfig model) {
-		this.model = model;
 		if (model == null) {
 			nameText.setText("");
 		} else {
+			if (this.model != null) {
+				updateTeamName();
+			}
+			this.model = model;
 			nameText.setText(model.getName());
 		}
 	}
@@ -138,6 +148,7 @@ public class TeamConfigPanel extends JPanel {
 	}
 	
 	private void updateTeamName() {
+		if (model == null) return;
 		String name = nameText.getText();
 		model.setName(name);
 		teamList.repaint();
@@ -150,7 +161,7 @@ public class TeamConfigPanel extends JPanel {
 	
 	private void newTeam() {
 		TeamConfig teamConfig = new TeamConfig();
-		teamConfig.setName("New Config");
+		teamConfig.setName("New Team");
 		config.addTeamConfig(teamConfig);
 		teamListModel.addElement(teamConfig);
 	}
