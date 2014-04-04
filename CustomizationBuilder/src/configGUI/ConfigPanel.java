@@ -135,6 +135,8 @@ public class ConfigPanel extends GenericPanel {
 		kitConfigPanel = new KitConfigPanel();
 		tabs.addTab(formatTab("Kit"), kitConfigPanel);
 		
+		teamConfigPanel.setKitConfigPanel(kitConfigPanel);
+		
 		// Weapon tab
 		weaponConfigPanel = new WeaponConfigPanel();
 		tabs.addTab(formatTab("Weapon"), weaponConfigPanel);

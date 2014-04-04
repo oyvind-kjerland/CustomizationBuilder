@@ -31,6 +31,10 @@ public class TeamConfigPanel extends JPanel {
 	// TeamInfo
 	private JTextField nameText;
 	
+	
+	// KitConfigPanel reference for updating teams
+	private KitConfigPanel kitConfigPanel;
+	
 	public TeamConfigPanel() {
 		makeTeamList();	
 		makeTeamInfo();
@@ -39,6 +43,10 @@ public class TeamConfigPanel extends JPanel {
 	public TeamConfigPanel(TeamConfig model) {
 		this();
 		setModel(model);
+	}
+	
+	public void setKitConfigPanel(KitConfigPanel kitConfigPanel) {
+		this.kitConfigPanel = kitConfigPanel;
 	}
 	
 	public void makeTeamList() {
@@ -164,6 +172,7 @@ public class TeamConfigPanel extends JPanel {
 		teamConfig.setName("New Team");
 		config.addTeamConfig(teamConfig);
 		teamListModel.addElement(teamConfig);
+		kitConfigPanel.updateTeams();
 	}
 	
 	private void deleteTeam() {
@@ -172,6 +181,7 @@ public class TeamConfigPanel extends JPanel {
 			teamListModel.removeElement(teamConfig);
 			config.removeTeamConfig(teamConfig);
 			setModel(null);
+			kitConfigPanel.updateTeams();
 		}
 	}
 	
