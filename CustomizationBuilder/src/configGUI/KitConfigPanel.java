@@ -6,6 +6,7 @@ import java.awt.event.ActionListener;
 
 import javax.swing.ComboBoxModel;
 import javax.swing.DefaultListModel;
+import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JList;
@@ -17,6 +18,7 @@ import javax.swing.event.ListSelectionListener;
 
 import config.Config;
 import config.KitConfig;
+import config.KitType;
 import config.TeamConfig;
 
 public class KitConfigPanel extends JPanel {
@@ -28,7 +30,10 @@ public class KitConfigPanel extends JPanel {
 	// Kit list
 	private JList<KitConfig> kitList;
 	private DefaultListModel<KitConfig> kitListModel;
+	
+	// Team ComboBox
 	private JComboBox<TeamConfig> teamComboBox;
+	private TeamConfig selectedTeamConfig;
 	
 	
 	public KitConfigPanel() {
@@ -82,10 +87,32 @@ public class KitConfigPanel extends JPanel {
 		JScrollPane scrollPane = new JScrollPane(kitList);
 		scrollPane.setPreferredSize(new Dimension(200, 190));
 		
+		
+		// New button
+		JButton newButton = new JButton("New");
+		newButton.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				newKit();
+			}
+		});
+		
+		// Delete button
+		JButton deleteButton = new JButton("Delete");
+		deleteButton.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				deleteKit();
+			}
+		});
+		
+		
 		kitListPanel.add(teamLabel);
 		kitListPanel.add(teamComboBox);
 		//kitListPanel.add(kitLabel);
 		kitListPanel.add(scrollPane);
+		kitListPanel.add(newButton);
+		kitListPanel.add(deleteButton);
 		
 	}
 	
@@ -111,11 +138,30 @@ public class KitConfigPanel extends JPanel {
 	}
 	
 	private void selectTeam() {
+		selectedTeamConfig = (TeamConfig)teamComboBox.getSelectedItem();
+		kitListModel.removeAllElements();
 		
+		if (selectedTeamConfig == null) return;
+		
+		for (KitConfig kitConfig : selectedTeamConfig.getKitConfigs()) {
+			kitListModel.addElement(kitConfig);
+		}
 	}
 	
 	private void selectKit() {
 		
 	}
 	
+	private void newKit() {
+		if (selectedTeamConfig != null) {
+			KitConfig kitConfig = new KitConfig();
+			kitConfig.setType(KitType.SPECOPS);
+			kitListModel.addElement(kitConfig);
+			selectedTeamConfig.addKitConfig(kitConfig);
+		}
+	}
+	
+	private void deleteKit() {
+		
+	}
 }
