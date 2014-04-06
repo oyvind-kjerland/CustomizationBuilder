@@ -4,8 +4,16 @@ import java.util.ArrayList;
 
 public class KitConfig {
 
+	private String name;
 	private KitType type;
 	private ArrayList<WeaponConfig> weaponConfigs = new ArrayList<WeaponConfig>();
+	
+	public String getName() {
+		return name;
+	}
+	public void setName(String name) {
+		this.name = name;
+	}
 	
 	public KitType getType() {
 		return type;
@@ -28,6 +36,6 @@ public class KitConfig {
 	}
 	
 	public String toString() {
-		return type.name();
+		return name;
 	}
 }
