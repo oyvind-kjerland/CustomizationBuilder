@@ -36,17 +36,14 @@ public class KitConfigPanel extends JPanel {
 	private TeamConfig selectedTeamConfig;
 	
 	
+	// Kit Info
+	private JComboBox<KitType> kitTypeComboBox;
+	
 	public KitConfigPanel() {
 		makeKitList();
 		makeKitInfo();
 	}
 	
-	private void makeKitInfo() {
-		JPanel kitInfoPanel = new JPanel();
-		kitInfoPanel.setPreferredSize(new Dimension(250, 200));
-		add(kitInfoPanel);
-		
-	}
 
 	public KitConfigPanel(KitConfig model) {
 		this();
@@ -115,6 +112,22 @@ public class KitConfigPanel extends JPanel {
 		kitListPanel.add(deleteButton);
 		
 	}
+
+	
+	private void makeKitInfo() {
+		JPanel kitInfoPanel = new JPanel();
+		kitInfoPanel.setPreferredSize(new Dimension(250, 200));
+		add(kitInfoPanel);
+		
+		JLabel kitTypeLabel = new JLabel("KitType: ");
+		kitTypeComboBox = new JComboBox(KitType.values());
+		
+		
+		
+		kitInfoPanel.add(kitTypeLabel);
+		kitInfoPanel.add(kitTypeComboBox);
+	}
+	
 	
 	public KitConfig getModel() {
 		return model;
