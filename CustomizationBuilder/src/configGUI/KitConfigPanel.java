@@ -220,7 +220,9 @@ public class KitConfigPanel extends JPanel {
 	
 	private void selectKitType() {
 		KitType type = (KitType)kitTypeComboBox.getSelectedItem();
-		model.setType(type);
+		if (model != null) {			
+			model.setType(type);
+		}
 	}
 	
 	private void updateKitName() {
@@ -247,6 +249,9 @@ public class KitConfigPanel extends JPanel {
 	}
 	
 	private void deleteKit() {
-		
+		if (selectedTeamConfig != null) {
+			KitConfig kitConfig = kitList.getSelectedValue();
+			
+		}
 	}
 }
