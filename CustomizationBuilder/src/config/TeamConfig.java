@@ -3,7 +3,7 @@ package config;
 import java.util.ArrayList;
 
 
-public class TeamConfig {
+public class TeamConfig implements ConfigInfo {
 
 	private String name;
 	private ArrayList<KitConfig> kitConfigs = new ArrayList<KitConfig>();

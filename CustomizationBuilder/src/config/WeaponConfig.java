@@ -1,6 +1,6 @@
 package config;
 
-public class WeaponConfig {
+public class WeaponConfig implements ConfigInfo {
 
 	
 	private String name;

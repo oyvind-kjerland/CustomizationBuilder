@@ -2,7 +2,7 @@ package config;
 
 import java.util.ArrayList;
 
-public class KitConfig {
+public class KitConfig implements ConfigInfo {
 
 	private String name;
 	private KitType type;
