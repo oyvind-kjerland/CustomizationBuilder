@@ -31,13 +31,6 @@ public class WeaponConfigListPanel extends AbstractConfigListPanel<WeaponConfig>
 		}
 	}
 
-	@Override
-	protected void selectConfig() {
-		if (infoListener != null) {
-			WeaponConfig weaponConfig = configList.getSelectedValue();
-			infoListener.setModel(weaponConfig);
-		}
-	}
 
 	@Override
 	public void setConfig(Config config) {

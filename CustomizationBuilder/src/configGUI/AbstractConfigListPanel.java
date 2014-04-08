@@ -13,6 +13,8 @@ import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
 import config.Config;
+import config.ConfigInfo;
+import config.WeaponConfig;
 
 public abstract class AbstractConfigListPanel<T> extends JPanel {
 
@@ -73,7 +75,14 @@ public abstract class AbstractConfigListPanel<T> extends JPanel {
 	
 	public abstract void setConfig(Config config);
 	
-	protected abstract void selectConfig();
+	//protected abstract void selectConfig();
+	
+	private void selectConfig() {
+		if (infoListener != null) {
+			ConfigInfo configInfo = (ConfigInfo)configList.getSelectedValue();
+			infoListener.setModel(configInfo);
+		}
+	}
 	
 	protected abstract void newConfig();
 	
