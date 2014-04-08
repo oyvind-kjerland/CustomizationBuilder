@@ -1,5 +1,10 @@
 package configGUI;
 
+import java.awt.Dimension;
+
+import javax.swing.DefaultListModel;
+import javax.swing.JLabel;
+import javax.swing.JList;
 import javax.swing.JPanel;
 
 import config.Config;
@@ -7,31 +12,20 @@ import config.WeaponConfig;
 
 public class WeaponConfigPanel extends JPanel {
 
-	
-	private WeaponConfig model;
-	private Config config;
-	
+	WeaponConfigInfoPanel weaponConfigInfoPanel;
+	WeaponConfigListPanel weaponConfigListPanel;
 	
 	public WeaponConfigPanel() {
+		weaponConfigInfoPanel = new WeaponConfigInfoPanel();
+		weaponConfigListPanel = new WeaponConfigListPanel();
 		
+		weaponConfigListPanel.setInfoListener(weaponConfigInfoPanel);
+		
+		add(weaponConfigListPanel);
+		add(weaponConfigInfoPanel);
 	}
-	
-	public WeaponConfigPanel(WeaponConfig model) {
-		this();
-		setModel(model);
-	}
-	
-	
-	public WeaponConfig getModel() {
-		return model;
-	}
-	
-	public void setModel(WeaponConfig model) {
-		this.model = model;
-	}
-	
 	
 	public void setConfig(Config config) {
-		
+		weaponConfigListPanel.setConfig(config);
 	}
 }
