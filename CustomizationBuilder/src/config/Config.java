@@ -2,7 +2,7 @@ package config;
 
 import java.util.ArrayList;
 
-public class Config {
+public class Config implements ConfigInfo {
 
 	private String name;
 	
