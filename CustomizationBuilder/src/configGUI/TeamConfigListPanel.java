@@ -20,12 +20,14 @@ public class TeamConfigListPanel extends AbstractConfigListPanel<TeamConfig> {
 
 	@Override
 	protected void newConfig() {
+		if (config == null) return;
+		
 		TeamConfig teamConfig = new TeamConfig();
 		teamConfig.setName("New Team");
+		
 		configListModel.addElement(teamConfig);
-		if (config != null) {
-			config.addTeamConfig(teamConfig);
-		}
+		config.addTeamConfig(teamConfig);
+
 	}
 
 	@Override

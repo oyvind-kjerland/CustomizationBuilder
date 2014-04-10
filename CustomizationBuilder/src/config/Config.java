@@ -12,7 +12,11 @@ public class Config implements ConfigInfo {
 	private ArrayList<WeaponConfig> weaponConfigs = new ArrayList<WeaponConfig>();
 	
 	private transient PropertyChangeSupport pcs;
-	private transient ArrayList<PropertyChangeListener> listeners = new ArrayList<PropertyChangeListener>();
+	
+	
+	public Config() {
+		this.pcs = new PropertyChangeSupport(this);
+	}
 	
 	public String getName() {
 		return name;
@@ -25,6 +29,7 @@ public class Config implements ConfigInfo {
 	public void addTeamConfig(TeamConfig teamConfig) {
 		teamConfigs.add(teamConfig);
 		pcs.firePropertyChange("addTeamConfig", null, teamConfig);
+		System.out.println("add team");
 	}
 	public void removeTeamConfig(TeamConfig teamConfig) {
 		teamConfigs.remove(teamConfig);
@@ -52,13 +57,15 @@ public class Config implements ConfigInfo {
 	}
 	
 	// PropertyChangeSupport
-	public void addPropertyChangeListener(PropertyChangeListener listener) {
-		if (!listeners.contains(listener)) {
-			listeners.add(listener);
-		}
+	public void setPropertyChangeSupport() {
+		this.pcs = new PropertyChangeSupport(this);
 	}
 	
+	public void addPropertyChangeListener(PropertyChangeListener listener) {
+		pcs.addPropertyChangeListener(listener);
+		System.out.println("add listener");
+	}
 	public void removePropertyChangeListener(PropertyChangeListener listener) {
-		listeners.remove(listener);
+		pcs.removePropertyChangeListener(listener);
 	}
 }
