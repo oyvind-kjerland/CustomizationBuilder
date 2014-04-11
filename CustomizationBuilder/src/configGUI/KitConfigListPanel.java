@@ -41,8 +41,11 @@ public class KitConfigListPanel extends AbstractConfigListPanel<KitConfig> {
 
 	@Override
 	protected void deleteConfig() {
-		// TODO Auto-generated method stub
+		if (teamConfig == null) return;
 		
+		KitConfig kitConfig = configList.getSelectedValue();
+		configListModel.removeElement(kitConfig);
+		teamConfig.removeKitConfig(kitConfig);
 	}
 	
 	

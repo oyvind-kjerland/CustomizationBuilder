@@ -23,8 +23,8 @@ public class KitConfigInfoPanel extends AbstractConfigInfoPanel implements Actio
 	
 	
 	private KitConfig model;
-	private JComboBox kitTypeComboBox;
 	private JTextField kitNameText;
+	private JComboBox<KitType> kitTypeComboBox;
 	
 	public KitConfigInfoPanel() {
 		GridBagLayout layout = new GridBagLayout();
@@ -39,7 +39,7 @@ public class KitConfigInfoPanel extends AbstractConfigInfoPanel implements Actio
 		kitNameText.addFocusListener(this);
 
 		JLabel kitTypeLabel = makeLabel("Type:");
-		kitTypeComboBox = new JComboBox(KitType.values());
+		kitTypeComboBox = new JComboBox<KitType>(KitType.values());
 		kitTypeComboBox.addActionListener(this);
 		
 		c.gridy = 0;
@@ -56,52 +56,53 @@ public class KitConfigInfoPanel extends AbstractConfigInfoPanel implements Actio
 	}
 	
 	
-	public JLabel makeLabel(String text) {
-		JLabel label = new JLabel(text, SwingConstants.LEFT);
-		label.setPreferredSize(new Dimension(50,20));
-		return label;
-	}
-	
 	public void setModel(ConfigInfo configInfo) {
 		if (configInfo == null) {
 			kitNameText.setText("");
+			kitTypeComboBox.setSelectedItem(KitType.SPECOPS);
 		} else if (configInfo != model) {
 			if (model != null) {
 				model.setName(kitNameText.getText());
+				model.setType((KitType)kitTypeComboBox.getSelectedItem());
 			}
 			
 			model = (KitConfig)configInfo;
 			
 			kitNameText.setText(model.getName());
+			kitTypeComboBox.setSelectedItem(model.getType());
 		}
 		
 	}
 
 
 
-
+	// Lsteners
 	@Override
-	public void actionPerformed(ActionEvent arg0) {
-		// TODO Auto-generated method stub
-		
+	public void actionPerformed(ActionEvent evt) {
+		updateField(evt.getSource());
 	}
-
-
-
 
 	@Override
 	public void focusGained(FocusEvent arg0) {
-		// TODO Auto-generated method stub
-		
 	}
-
-
-
 
 	@Override
-	public void focusLost(FocusEvent arg0) {
-		// TODO Auto-generated method stub
-		
+	public void focusLost(FocusEvent evt) {
+		updateField(evt.getSource());
 	}
+	
+	
+	private void updateField(Object source) {
+		if (model == null) return;
+		
+		if (source == kitNameText) {
+			model.setName(kitNameText.getText());
+		} else if (source == kitTypeComboBox) {
+			model.setType((KitType)kitTypeComboBox.getSelectedItem());
+		}
+		
+		getParent().repaint();
+	}
+	
 	
 }
