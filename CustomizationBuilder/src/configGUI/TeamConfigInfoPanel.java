@@ -13,7 +13,7 @@ import javax.swing.JTextField;
 import config.ConfigInfo;
 import config.TeamConfig;
 
-public class TeamConfigInfoPanel extends JPanel implements ConfigInfoPanel, ActionListener, FocusListener {
+public class TeamConfigInfoPanel extends AbstractConfigInfoPanel implements ActionListener, FocusListener {
 
 	
 	private TeamConfig model;

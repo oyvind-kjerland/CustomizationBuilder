@@ -22,7 +22,7 @@ public abstract class AbstractConfigListPanel<T> extends JPanel {
 	protected JList<T> configList;
 	protected DefaultListModel<T> configListModel;
 	protected Config config;
-	protected ConfigInfoPanel infoListener;
+	protected AbstractConfigInfoPanel infoListener;
 	
 	public AbstractConfigListPanel() {
 		
@@ -65,7 +65,7 @@ public abstract class AbstractConfigListPanel<T> extends JPanel {
 	}
 	
 	
-	public void setInfoListener(ConfigInfoPanel configInfoPanel) {
+	public void setInfoListener(AbstractConfigInfoPanel configInfoPanel) {
 		infoListener = configInfoPanel;
 	}
 	

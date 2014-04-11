@@ -13,11 +13,10 @@ import javax.swing.JTextField;
 import config.ConfigInfo;
 import config.WeaponConfig;
 
-public class WeaponConfigInfoPanel extends JPanel implements ConfigInfoPanel, ActionListener, FocusListener {
+public class WeaponConfigInfoPanel extends AbstractConfigInfoPanel implements ActionListener, FocusListener {
 
 	
 	private WeaponConfig model;
-	
 	
 	private JTextField nameText;
 	

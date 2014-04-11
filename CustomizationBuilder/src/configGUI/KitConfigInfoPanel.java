@@ -12,13 +12,14 @@ import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+import javax.swing.SwingConstants;
 
 import config.ConfigInfo;
 import config.KitConfig;
 import config.KitType;
 import config.TeamConfig;
 
-public class KitConfigInfoPanel extends JPanel implements ConfigInfoPanel {
+public class KitConfigInfoPanel extends AbstractConfigInfoPanel implements ActionListener, FocusListener {
 	
 	
 	private KitConfig model;
@@ -29,55 +30,37 @@ public class KitConfigInfoPanel extends JPanel implements ConfigInfoPanel {
 		GridBagLayout layout = new GridBagLayout();
 		GridBagConstraints c = new GridBagConstraints();
 		
-		JPanel kitInfoPanel = new JPanel();
-		kitInfoPanel.setLayout(layout);
-		kitInfoPanel.setPreferredSize(new Dimension(250, 200));
-		add(kitInfoPanel);
+		setPreferredSize(new Dimension(250, 250));
+		setLayout(layout);
 		
-		JLabel kitTypeLabel = new JLabel("KitType:");
-		kitTypeComboBox = new JComboBox(KitType.values());
-		kitTypeComboBox.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent arg0) {
-				//selectKitType();
-			}
-		});
-		
-		JLabel kitNameLabel = new JLabel("Name:");
+		JLabel kitNameLabel = makeLabel("Name:");
 		kitNameText = new JTextField(20);
-		kitNameText.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				//updateKitName();
-			}
-		});
-		kitNameText.addFocusListener(new FocusListener() {
-			@Override
-			public void focusLost(FocusEvent arg0) {
-				//updateKitName();
-			}
-			@Override
-			public void focusGained(FocusEvent arg0) {
-			}
-		});
-		
+		kitNameText.addActionListener(this);
+		kitNameText.addFocusListener(this);
+
+		JLabel kitTypeLabel = makeLabel("Type:");
+		kitTypeComboBox = new JComboBox(KitType.values());
+		kitTypeComboBox.addActionListener(this);
 		
 		c.gridy = 0;
 		c.gridx = 0;
-		kitInfoPanel.add(kitNameLabel);
+		add(kitNameLabel, c);
 		c.gridx = 1;
-		kitInfoPanel.add(kitNameText);
+		add(kitNameText, c);
 		
 		c.gridy = 1;
 		c.gridx = 0;
-		kitInfoPanel.add(kitTypeLabel, c);		
+		add(kitTypeLabel, c);
 		c.gridx = 1;
-		kitInfoPanel.add(kitTypeComboBox,c);
-		
+		add(kitTypeComboBox, c);
 	}
 	
 	
-	
+	public JLabel makeLabel(String text) {
+		JLabel label = new JLabel(text, SwingConstants.LEFT);
+		label.setPreferredSize(new Dimension(50,20));
+		return label;
+	}
 	
 	public void setModel(ConfigInfo configInfo) {
 		if (configInfo == null) {
@@ -91,6 +74,33 @@ public class KitConfigInfoPanel extends JPanel implements ConfigInfoPanel {
 			
 			kitNameText.setText(model.getName());
 		}
+		
+	}
+
+
+
+
+	@Override
+	public void actionPerformed(ActionEvent arg0) {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+
+
+	@Override
+	public void focusGained(FocusEvent arg0) {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+
+
+	@Override
+	public void focusLost(FocusEvent arg0) {
+		// TODO Auto-generated method stub
 		
 	}
 	
