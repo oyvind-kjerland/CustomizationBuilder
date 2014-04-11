@@ -155,6 +155,10 @@ public class ConfigPanel extends GenericPanel {
 		weaponConfigPanel.setConfig(config);
 	}
 	
+	public Config getConfig() {
+		return config;
+	}
+	
 	
 	private void newConfig() {
 		if (configFile != null) {

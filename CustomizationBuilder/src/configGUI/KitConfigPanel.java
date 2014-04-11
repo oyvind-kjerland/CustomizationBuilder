@@ -72,6 +72,10 @@ public class KitConfigPanel extends JPanel implements PropertyChangeListener {
 	}
 
 	
+	public Config getConfig() {
+		return config;
+	}
+	
 	public void setConfig(Config config) {
 		if (this.config != null) {
 			this.config.removePropertyChangeListener(this);
