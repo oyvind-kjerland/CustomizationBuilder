@@ -10,6 +10,7 @@ public class Config implements ConfigInfo {
 	
 	private ArrayList<TeamConfig> teamConfigs = new ArrayList<TeamConfig>();
 	private ArrayList<WeaponConfig> weaponConfigs = new ArrayList<WeaponConfig>();
+	private ArrayList<PartConfig> partConfigs = new ArrayList<PartConfig>();
 	
 	private transient PropertyChangeSupport pcs;
 	
@@ -29,7 +30,6 @@ public class Config implements ConfigInfo {
 	public void addTeamConfig(TeamConfig teamConfig) {
 		teamConfigs.add(teamConfig);
 		pcs.firePropertyChange("addTeamConfig", null, teamConfig);
-		System.out.println("add team");
 	}
 	public void removeTeamConfig(TeamConfig teamConfig) {
 		teamConfigs.remove(teamConfig);
@@ -45,9 +45,11 @@ public class Config implements ConfigInfo {
 	// WeaponConfig
 	public void addWeaponConfig(WeaponConfig weaponConfig) {
 		weaponConfigs.add(weaponConfig);
+		pcs.firePropertyChange("addWeaponConfig", null, weaponConfig);
 	}
 	public void removeWeaponConfig(WeaponConfig weaponConfig) {
 		weaponConfigs.remove(weaponConfig);
+		pcs.firePropertyChange("removeWeaponConfig", weaponConfig, null);
 	}
 	public ArrayList<WeaponConfig> getWeaponConfigs() {
 		return weaponConfigs;
@@ -55,6 +57,24 @@ public class Config implements ConfigInfo {
 	public void setWeaponConfigs(ArrayList<WeaponConfig> weaponConfigs) {
 		this.weaponConfigs = weaponConfigs;
 	}
+	
+	
+	// PartConfig
+	public void addPartConfig(PartConfig partConfig) {
+		partConfigs.add(partConfig);
+		pcs.firePropertyChange("addPartConfig", null, partConfig);
+	}
+	public void removePartConfig(PartConfig partConfig) {
+		partConfigs.remove(partConfig);
+		pcs.firePropertyChange("removePartConfig", partConfig, null);
+	}
+	public ArrayList<PartConfig> getPartConfigs() {
+		return partConfigs;
+	}
+	public void setPartConfigs(ArrayList<PartConfig> partConfigs) {
+		this.partConfigs = partConfigs;
+	}
+	
 	
 	// PropertyChangeSupport
 	public void setPropertyChangeSupport() {
