@@ -20,4 +20,8 @@ public class PartConfig implements ConfigInfo {
 		this.type = type;
 	}
 	
+	
+	public String toString() {
+		return getName();
+	}
 }
