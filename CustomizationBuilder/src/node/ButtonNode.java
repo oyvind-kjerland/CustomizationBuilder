@@ -2,7 +2,7 @@ package node;
 
 import java.util.ArrayList;
 
-public class ButtonNode {
+public class ButtonNode extends VisibleNode {
 
 	
 	protected ArrayList<ButtonCommand> commands = new ArrayList<ButtonCommand>();

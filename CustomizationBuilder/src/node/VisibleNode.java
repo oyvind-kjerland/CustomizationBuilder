@@ -6,9 +6,9 @@ import java.awt.Point;
 
 public abstract class VisibleNode extends AbstractNode {
 
-	protected Point position;
+	protected Point position = new Point(0, 0);
 	
-	protected Dimension size;
+	protected Dimension size = new Dimension(0, 0);
 	
 	protected Color color;
 	
@@ -18,12 +18,20 @@ public abstract class VisibleNode extends AbstractNode {
 	public void setPosition(Point position) {
 		this.position = position;
 	}
+	public void setPosition(int x, int y) {
+		this.position.x = x;
+		this.position.y = y;
+	}
 	
 	public Dimension getSize() {
 		return size;
 	}
 	public void setSize(Dimension size) {
 		this.size = size;
+	}
+	public void setSize(int width, int height) {
+		this.size.width = width;
+		this.size.height = height;
 	}
 	
 	public Color getColor() {
