@@ -3,6 +3,7 @@ package configGUI;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
 import java.io.File;
 import java.io.IOException;
 
@@ -15,6 +16,7 @@ import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
+import javax.swing.KeyStroke;
 
 import config.Config;
 import config.ConfigManager;
@@ -71,6 +73,7 @@ public class ConfigPanel extends GenericPanel {
 				newConfig();
 			}
 		});
+		menuItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_N, ActionEvent.CTRL_MASK));
 		fileMenu.add(menuItem);
 		
 		
@@ -81,6 +84,7 @@ public class ConfigPanel extends GenericPanel {
 				openConfig();
 			}
 		});
+		menuItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_O, ActionEvent.CTRL_MASK));
 		fileMenu.add(menuItem);
 		
 		
@@ -91,6 +95,7 @@ public class ConfigPanel extends GenericPanel {
 				saveConfig();
 			}
 		});
+		menuItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_S, ActionEvent.CTRL_MASK));
 		fileMenu.add(menuItem);
 		
 		menuItem = new JMenuItem("Save as...");
@@ -100,6 +105,7 @@ public class ConfigPanel extends GenericPanel {
 				saveConfigAs();
 			}
 		});
+		menuItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_S, ActionEvent.CTRL_MASK | ActionEvent.SHIFT_MASK));
 		fileMenu.add(menuItem);
 		
 		
@@ -112,6 +118,7 @@ public class ConfigPanel extends GenericPanel {
 				exportConfig();
 			}
 		});
+		menuItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_E, ActionEvent.CTRL_MASK));
 		fileMenu.add(menuItem);
 		
 		
