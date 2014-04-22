@@ -9,33 +9,31 @@ import java.awt.event.ActionListener;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
 
+import javax.swing.JComboBox;
 import javax.swing.JLabel;
-import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 import config.ConfigInfo;
+import config.PartConfig;
 import config.PartType;
 import config.WeaponConfig;
 
-public class WeaponConfigInfoPanel extends AbstractConfigInfoPanel implements ActionListener, FocusListener {
+public class PartConfigInfoPanel extends AbstractConfigInfoPanel implements ActionListener, FocusListener {
 
 	
-	private WeaponConfig model;
+	private PartConfig model;
 	
 	private JTextField nameText;
-	
-	private GenericPartPanel sightPanel;
-	private GenericPartPanel attachmentPanel;
-	private GenericPartPanel skinPanel;
+	private JComboBox<PartType> typeComboBox;
 	
 	private final Dimension infoFieldSize = new Dimension(150,20);
 	
-	public WeaponConfigInfoPanel() {
+	public PartConfigInfoPanel() {
 		super();
 		
 		GridBagLayout layout = new GridBagLayout();
 		GridBagConstraints c = new GridBagConstraints();
-		c.insets = new Insets(0, 0, 0, 0);
+		c.insets = new Insets(0, 0, 5, 0);
 		setLayout(layout);
 		
 		// Labels
@@ -45,17 +43,11 @@ public class WeaponConfigInfoPanel extends AbstractConfigInfoPanel implements Ac
 		nameText.addFocusListener(this);
 		nameText.setPreferredSize(infoFieldSize);
 		
-		
-		
-		JLabel sightLabel = makeLabel("Sight");
-		sightPanel = new GenericPartPanel(PartType.SIGHT);
+		JLabel typeLabel = makeLabel("Type:");
+		typeComboBox  = new JComboBox(PartType.values());
+		typeComboBox.setPreferredSize(infoFieldSize);
+		typeComboBox.addActionListener(this);
 
-		JLabel attachmentLabel = makeLabel("Attachment:");
-		attachmentPanel = new GenericPartPanel(PartType.ATTACHMENT);
-		
-		JLabel skinLabel = makeLabel("Skin:");
-		skinPanel = new GenericPartPanel(PartType.SKIN);
-		
 		
 		c.gridy = 0;
 		c.gridx = 0;
@@ -65,74 +57,76 @@ public class WeaponConfigInfoPanel extends AbstractConfigInfoPanel implements Ac
 		
 		c.gridy = 1;
 		c.gridx = 0;
-		add(sightLabel, c);
+		add(typeLabel, c);
 		c.gridx = 1;
-		add(sightPanel, c);
+		add(typeComboBox, c);
 		
-		c.gridy = 2;
-		c.gridx = 0;
-		add(attachmentLabel, c);
-		c.gridx = 1;
-		add(attachmentPanel, c);
-		
-		c.gridy = 3;
-		c.gridx = 0;
-		add(skinLabel, c);
-		c.gridx = 1;
-		add(skinPanel, c);
-	}
 
+		
+		
+		
+		
+	}
+	
 	
 	@Override
 	public void setModel(ConfigInfo configInfo) {
 		if (configInfo == null) {
 			nameText.setText("");
-			sightPanel.setModel(null);
-		} else if (configInfo != model) {			
+		} else {
 			if (model != null) {
 				// Save values before the new model is set
 				model.setName(nameText.getText());
+				
+				PartType type = (PartType)typeComboBox.getSelectedItem();
+				model.setType(type);
 			}
 			
-			model = (WeaponConfig)configInfo;
+			model = (PartConfig)configInfo;
 			
 			nameText.setText(model.getName());
-			
-			sightPanel.setModel(model);
-			attachmentPanel.setModel(model);
-			skinPanel.setModel(model);
+			typeComboBox.setSelectedItem(model.getType());
 		}
 	}
 
-	
+
 	@Override
-	public void actionPerformed(ActionEvent e) {
+	public void actionPerformed(ActionEvent evt) {
 		if (model == null) return;
 		
-		if (e.getSource() == nameText) {
+		if (evt.getSource() == nameText) {
 			model.setName(nameText.getText());
+		} else if (evt.getSource() == typeComboBox) {
+			PartType type = (PartType)typeComboBox.getSelectedItem();
+			model.setType(type);
 		}
 		
-		// Repaint parent frame
 		getParent().repaint();
-		
 	}
 
-	
+
 	@Override
 	public void focusGained(FocusEvent arg0) {
+
 	}
 
+
 	@Override
-	public void focusLost(FocusEvent e) {
+	public void focusLost(FocusEvent evt) {
 		if (model == null) return;
 		
-		if (e.getSource() == nameText) {
+		if (evt.getSource() == nameText) {
 			model.setName(nameText.getText());
+			
+			PartType type = (PartType)typeComboBox.getSelectedItem();
+			model.setType(type);
 		}
-		getParent().repaint();
 		
+		getParent().repaint();
 	}
 	
 	
+	
+	
+
 }

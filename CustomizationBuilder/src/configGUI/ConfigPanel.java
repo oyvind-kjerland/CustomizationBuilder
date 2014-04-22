@@ -26,13 +26,13 @@ import gui.MainFrame;
 public class ConfigPanel extends GenericPanel {
 
 	
-	private static final Dimension panelSize = new Dimension(500, 300);
+	private static final Dimension panelSize = new Dimension(550, 300);
 	
 	// Tab panels
 	private TeamConfigPanel teamConfigPanel;
 	private KitConfigPanel kitConfigPanel;
 	private WeaponConfigPanel weaponConfigPanel;
-	
+	private PartConfigPanel partConfigPanel;
 	
 	// Current Config file
 	private File configFile;
@@ -105,7 +105,17 @@ public class ConfigPanel extends GenericPanel {
 		
 		fileMenu.addSeparator();
 		
+		menuItem = new JMenuItem("Export to .py");
+		menuItem.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				exportConfig();
+			}
+		});
+		fileMenu.add(menuItem);
 		
+		
+		/*
 		menuItem = new JMenuItem("Exit");
 		menuItem.addActionListener(new ActionListener() {
 			@Override
@@ -114,6 +124,7 @@ public class ConfigPanel extends GenericPanel {
 			}
 		});
 		fileMenu.add(menuItem);
+		*/
 		
 		menuBar.add(fileMenu);
 		mainFrame.setJMenuBar(menuBar);
@@ -141,6 +152,10 @@ public class ConfigPanel extends GenericPanel {
 		weaponConfigPanel = new WeaponConfigPanel();
 		tabs.addTab(formatTab("Weapon"), weaponConfigPanel);
 		
+		// Part tab
+		partConfigPanel = new PartConfigPanel();
+		tabs.addTab(formatTab("Part"), partConfigPanel);
+		
 	}
 	
 	private String formatTab(String name) {
@@ -153,6 +168,7 @@ public class ConfigPanel extends GenericPanel {
 		teamConfigPanel.setConfig(config);
 		kitConfigPanel.setConfig(config);
 		weaponConfigPanel.setConfig(config);
+		partConfigPanel.setConfig(config);
 	}
 	
 	public Config getConfig() {
@@ -236,6 +252,20 @@ public class ConfigPanel extends GenericPanel {
 		// Cleanup
 		mainFrame.setJMenuBar(null);
 		showMainPanel();
+	}
+	
+	private void exportConfig() {
+		if (configFile == null) return;
+		
+		JFileChooser fc = new JFileChooser();
+		File dir = new File("config");
+		fc.setCurrentDirectory(dir);
+		int option = fc.showSaveDialog(mainFrame);
+		
+		if (option == JFileChooser.APPROVE_OPTION) {
+			File configFile = fc.getSelectedFile();
+			configManager.exportConfig(config, configFile);
+		}
 	}
 	
 	private void showMainPanel() {

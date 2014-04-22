@@ -22,8 +22,7 @@ public class TeamConfigInfoPanel extends AbstractConfigInfoPanel implements Acti
 	private JTextField nameText;
 	
 	public TeamConfigInfoPanel() {
-		setPreferredSize(new Dimension(250, 250));
-		
+		super();
 		
 		JLabel nameLabel = new JLabel("Name:");
 		nameText = new JTextField(20);

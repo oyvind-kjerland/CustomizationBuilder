@@ -10,11 +10,16 @@ import config.ConfigInfo;
 
 public abstract class AbstractConfigInfoPanel extends JPanel {
 
+	public AbstractConfigInfoPanel() {
+		setPreferredSize(new Dimension(300, 250));
+	}
+	
+	
 	public abstract void setModel(ConfigInfo configInfo);
 	
 	public JLabel makeLabel(String text) {
 		JLabel label = new JLabel(text, SwingConstants.LEFT);
-		label.setPreferredSize(new Dimension(50,20));
+		label.setPreferredSize(new Dimension(80,20));
 		return label;
 	}
 	

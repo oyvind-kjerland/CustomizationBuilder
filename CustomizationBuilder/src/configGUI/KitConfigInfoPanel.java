@@ -41,13 +41,13 @@ public class KitConfigInfoPanel extends AbstractConfigInfoPanel implements Actio
 	private final Dimension weaponListSize = new Dimension(150, 100);
 	
 	public KitConfigInfoPanel() {
-		
+		super();
 		
 		
 		GridBagLayout layout = new GridBagLayout();
 		GridBagConstraints c = new GridBagConstraints();
 		c.insets = new Insets(0, 0, 5, 0);
-		setPreferredSize(new Dimension(250, 250));
+		
 		setLayout(layout);
 		
 		
@@ -125,7 +125,9 @@ public class KitConfigInfoPanel extends AbstractConfigInfoPanel implements Actio
 	
 	
 	public void setModel(ConfigInfo configInfo) {
+		System.out.println(configInfo);
 		if (configInfo == null) {
+			model = null;
 			kitNameText.setText("");
 			kitTypeComboBox.setSelectedItem(KitType.SPECOPS);
 			weaponListModel.removeAllElements();
