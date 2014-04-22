@@ -50,6 +50,7 @@ public class KitConfigPanel extends JPanel implements PropertyChangeListener {
 		kitConfigInfoPanel = new KitConfigInfoPanel();
 		
 		kitConfigListPanel.setInfoListener(kitConfigInfoPanel);
+		kitConfigListPanel.hideButtons();
 		
 		// ComboBox
 		teamComboBox = new JComboBox<TeamConfig>();

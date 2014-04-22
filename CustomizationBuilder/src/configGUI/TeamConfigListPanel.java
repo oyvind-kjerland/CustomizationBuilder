@@ -1,6 +1,8 @@
 package configGUI;
 
 import config.Config;
+import config.KitConfig;
+import config.KitType;
 import config.TeamConfig;
 import config.WeaponConfig;
 
@@ -24,6 +26,15 @@ public class TeamConfigListPanel extends AbstractConfigListPanel<TeamConfig> {
 		
 		TeamConfig teamConfig = new TeamConfig();
 		teamConfig.setName("New Team");
+		
+		// Add kits to team
+		for (KitType type : KitType.values()) {
+			KitConfig kitConfig = new KitConfig();
+			kitConfig.setName(type.name());
+			kitConfig.setType(type);
+			teamConfig.addKitConfig(kitConfig);
+		}
+		
 		
 		configListModel.addElement(teamConfig);
 		config.addTeamConfig(teamConfig);

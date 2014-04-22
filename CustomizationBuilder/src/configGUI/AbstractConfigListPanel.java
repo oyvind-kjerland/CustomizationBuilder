@@ -23,6 +23,9 @@ public abstract class AbstractConfigListPanel<T> extends JPanel {
 	protected DefaultListModel<T> configListModel;
 	protected Config config;
 	protected AbstractConfigInfoPanel infoListener;
+	protected JButton newButton;
+	protected JButton deleteButton;
+	
 	
 	public AbstractConfigListPanel() {
 		
@@ -44,14 +47,14 @@ public abstract class AbstractConfigListPanel<T> extends JPanel {
 		JScrollPane scrollPane = new JScrollPane(configList);
 		scrollPane.setPreferredSize(new Dimension(200, 200));
 		
-		JButton newButton = new JButton("New");
+		newButton = new JButton("New");
 		newButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				newConfig();
 			}
 		});
-		JButton deleteButton = new JButton("Delete");
+		deleteButton = new JButton("Delete");
 		deleteButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -64,6 +67,11 @@ public abstract class AbstractConfigListPanel<T> extends JPanel {
 		add(deleteButton);
 	}
 	
+	
+	public void hideButtons() {
+		newButton.setVisible(false);
+		deleteButton.setVisible(false);
+	}
 	
 	public void setInfoListener(AbstractConfigInfoPanel configInfoPanel) {
 		infoListener = configInfoPanel;

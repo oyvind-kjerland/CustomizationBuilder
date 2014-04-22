@@ -57,13 +57,14 @@ public class KitConfigInfoPanel extends AbstractConfigInfoPanel implements Actio
 		kitNameText.addActionListener(this);
 		kitNameText.addFocusListener(this);
 		kitNameText.setPreferredSize(infoFieldSize);
-
+		
 		
 		// Kit Type
 		JLabel kitTypeLabel = makeLabel("Type:");
 		kitTypeComboBox = new JComboBox<KitType>(KitType.values());
 		kitTypeComboBox.addActionListener(this);
 		kitTypeComboBox.setPreferredSize(infoFieldSize);
+		kitTypeComboBox.setEditable(false);
 		
 		// Weapons
 		JLabel weaponsLabel = makeLabel("Weapons:");
@@ -100,11 +101,13 @@ public class KitConfigInfoPanel extends AbstractConfigInfoPanel implements Actio
 		c.gridx = 1;
 		add(kitNameText, c);
 		
+		/*
 		c.gridy = 1;
 		c.gridx = 0;
 		add(kitTypeLabel, c);
 		c.gridx = 1;
 		add(kitTypeComboBox, c);
+		*/
 		
 		c.gridy = 2;
 		c.gridx = 0;
