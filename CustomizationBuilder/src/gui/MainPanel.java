@@ -33,6 +33,16 @@ public class MainPanel extends GenericPanel {
 		});
 		add(editConfigButton);
 		
+		
+		JButton emulateButton = new JButton("Emulate");
+		emulateButton.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				showEmulatorPanel();
+			}
+		});
+		add(emulateButton);
+		
 	}
 	
 	
@@ -43,5 +53,9 @@ public class MainPanel extends GenericPanel {
 	
 	private void showConfigPanel() {
 		mainFrame.showConfigPanel();
+	}
+	
+	private void showEmulatorPanel() {
+		mainFrame.showEmulatorPanel();
 	}
 }
