@@ -35,6 +35,7 @@ public class ConfigPanel extends GenericPanel {
 	private KitConfigPanel kitConfigPanel;
 	private WeaponConfigPanel weaponConfigPanel;
 	private PartConfigPanel partConfigPanel;
+	private SuffixConfigPanel suffixConfigPanel;
 	
 	// Current Config file
 	private File configFile;
@@ -163,6 +164,9 @@ public class ConfigPanel extends GenericPanel {
 		partConfigPanel = new PartConfigPanel();
 		tabs.addTab(formatTab("Part"), partConfigPanel);
 		
+		// Suffix tab
+		suffixConfigPanel = new SuffixConfigPanel();
+		tabs.addTab(formatTab("Suffix"), suffixConfigPanel);
 	}
 	
 	private String formatTab(String name) {
@@ -176,6 +180,7 @@ public class ConfigPanel extends GenericPanel {
 		kitConfigPanel.setConfig(config);
 		weaponConfigPanel.setConfig(config);
 		partConfigPanel.setConfig(config);
+		suffixConfigPanel.setConfig(config);
 	}
 	
 	public Config getConfig() {

@@ -11,6 +11,8 @@ public class Config implements ConfigInfo {
 	private ArrayList<TeamConfig> teamConfigs = new ArrayList<TeamConfig>();
 	private ArrayList<WeaponConfig> weaponConfigs = new ArrayList<WeaponConfig>();
 	private ArrayList<PartConfig> partConfigs = new ArrayList<PartConfig>();
+	private ArrayList<SuffixConfig> suffixConfigs = new ArrayList<SuffixConfig>();
+	
 	
 	private transient PropertyChangeSupport pcs;
 	
@@ -73,6 +75,23 @@ public class Config implements ConfigInfo {
 	}
 	public void setPartConfigs(ArrayList<PartConfig> partConfigs) {
 		this.partConfigs = partConfigs;
+	}
+	
+	
+	// SuffixConfig
+	public void addSuffixConfig(SuffixConfig suffixConfig) {
+		suffixConfigs.add(suffixConfig);
+		pcs.firePropertyChange("addsuffixConfig", null, suffixConfig);
+	}
+	public void removeSuffixConfig(SuffixConfig suffixConfig) {
+		suffixConfigs.remove(suffixConfig);
+		pcs.firePropertyChange("removesuffixConfig", suffixConfig, null);
+	}
+	public ArrayList<SuffixConfig> getSuffixConfigs() {
+		return suffixConfigs;
+	}
+	public void setSuffixConfigs(ArrayList<SuffixConfig> suffixConfigs) {
+		this.suffixConfigs = suffixConfigs;
 	}
 	
 	
