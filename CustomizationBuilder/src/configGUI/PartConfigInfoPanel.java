@@ -9,6 +9,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
 
+import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
@@ -25,6 +26,7 @@ public class PartConfigInfoPanel extends AbstractConfigInfoPanel implements Acti
 	
 	private JTextField nameText;
 	private JComboBox<PartType> typeComboBox;
+	private JCheckBox useImageCheckBox;
 	
 	private final Dimension infoFieldSize = new Dimension(150,20);
 	
@@ -48,6 +50,9 @@ public class PartConfigInfoPanel extends AbstractConfigInfoPanel implements Acti
 		typeComboBox.setPreferredSize(infoFieldSize);
 		typeComboBox.addActionListener(this);
 
+		JLabel useImageLabel = makeLabel("Use image:");
+		useImageCheckBox = new JCheckBox();
+		useImageCheckBox.addActionListener(this);
 		
 		c.gridy = 0;
 		c.gridx = 0;
@@ -61,7 +66,12 @@ public class PartConfigInfoPanel extends AbstractConfigInfoPanel implements Acti
 		c.gridx = 1;
 		add(typeComboBox, c);
 		
-
+		c.gridy = 2;
+		c.gridx = 0;
+		add(useImageLabel, c);
+		c.gridx = 1;
+		add(useImageCheckBox, c);
+		
 		
 		
 		
@@ -73,6 +83,8 @@ public class PartConfigInfoPanel extends AbstractConfigInfoPanel implements Acti
 	public void setModel(ConfigInfo configInfo) {
 		if (configInfo == null) {
 			nameText.setText("");
+			typeComboBox.setSelectedItem(PartType.SIGHT);
+			useImageCheckBox.setSelected(false);
 		} else {
 			if (model != null) {
 				// Save values before the new model is set
@@ -80,12 +92,14 @@ public class PartConfigInfoPanel extends AbstractConfigInfoPanel implements Acti
 				
 				PartType type = (PartType)typeComboBox.getSelectedItem();
 				model.setType(type);
+				model.setUseImage(useImageCheckBox.isSelected());
 			}
 			
 			model = (PartConfig)configInfo;
 			
 			nameText.setText(model.getName());
 			typeComboBox.setSelectedItem(model.getType());
+			useImageCheckBox.setSelected(model.getUseImage());
 		}
 	}
 
@@ -99,6 +113,9 @@ public class PartConfigInfoPanel extends AbstractConfigInfoPanel implements Acti
 		} else if (evt.getSource() == typeComboBox) {
 			PartType type = (PartType)typeComboBox.getSelectedItem();
 			model.setType(type);
+		} else if (evt.getSource() == useImageCheckBox) {
+			boolean useImage = useImageCheckBox.isSelected();
+			model.setUseImage(useImage);
 		}
 		
 		getParent().repaint();

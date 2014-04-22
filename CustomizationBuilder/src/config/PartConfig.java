@@ -4,7 +4,7 @@ public class PartConfig implements ConfigInfo {
 
 	private String name;
 	private PartType type;
-	
+	private boolean useImage;
 	
 	public String getName() {
 		return name;
@@ -20,6 +20,12 @@ public class PartConfig implements ConfigInfo {
 		this.type = type;
 	}
 	
+	public boolean getUseImage() {
+		return useImage;
+	}
+	public void setUseImage(boolean useImage) {
+		this.useImage = useImage;
+	}
 	
 	public String toString() {
 		return getName();

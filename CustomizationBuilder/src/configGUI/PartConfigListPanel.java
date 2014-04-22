@@ -13,6 +13,7 @@ public class PartConfigListPanel extends AbstractConfigListPanel<PartConfig> {
 		PartConfig partConfig = new PartConfig();
 		partConfig.setName("New Part");
 		partConfig.setType(PartType.SIGHT);
+		partConfig.setUseImage(true);
 		
 		configListModel.addElement(partConfig);
 		
