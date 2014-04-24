@@ -10,6 +10,7 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class ConfigManager {
@@ -91,6 +92,7 @@ public class ConfigManager {
 				int i = 0;
 				for (WeaponConfig weaponConfig : kitConfig.getWeaponConfigs()) {
 					i++;
+					if (i==4) break;
 					sw.append("'weapon_"+i+"':{");
 					sw.indent();
 					sw.newLine();
@@ -101,19 +103,27 @@ public class ConfigManager {
 					// Sights
 					sw.append("'sight':[");
 					for (PartConfig sightConfig : weaponConfig.getPartsOfType(PartType.SIGHT)) {
-						sw.append("'"+sightConfig.getName().toLowerCase()+"',");
+						sw.append("'"+sightConfig.getName().toLowerCase());
+						if (!sightConfig.getUseImage()) {
+							sw.append("#N");
+						}
+						sw.append("',");
 					}
 					sw.append("],");
 					sw.newLine();
 					
 					
-					sw.append("'default_sight':'"+weaponConfig.getPartsOfType(PartType.SIGHT).get(0)+"',");
+					sw.append("'default_sight':'"+weaponConfig.getPartsOfType(PartType.SIGHT).get(0).toString().toLowerCase()+"',");
 					sw.newLine();
 					
 					// Attachment
 					sw.append("'attachment':[");
 					for (PartConfig attachmentConfig : weaponConfig.getPartsOfType(PartType.ATTACHMENT)) {
-						sw.append("'"+attachmentConfig.getName().toLowerCase()+"',");
+						sw.append("'"+attachmentConfig.getName().toLowerCase());
+						if (!attachmentConfig.getUseImage()) {
+							sw.append("#N");
+						}
+						sw.append("',");
 					}
 					sw.append("],");
 					sw.newLine();
@@ -126,11 +136,50 @@ public class ConfigManager {
 					sw.append("],");
 					sw.newLine();
 					
+					sw.append("'camo':{");
+					sw.indent();
+					sw.newLine();
+					
+					
+					for (PartConfig skinConfig : weaponConfig.getPartsOfType(PartType.SKIN)) {
+						ArrayList<SuffixConfig> suffixes = new ArrayList<SuffixConfig>();
+						
+						for (SuffixConfig suffixConfig : config.getSuffixConfigs()) {
+							if (suffixConfig.getSkins().contains(skinConfig)) {
+								suffixes.add(suffixConfig);
+							}
+						}
+						
+						if (suffixes.size() == 0) {
+							continue;
+						}
+						
+						sw.append("'"+skinConfig.getName().toLowerCase()+"':[");
+						
+						for (SuffixConfig suffixConfig : suffixes) {
+							sw.append("'"+suffixConfig.getName().toLowerCase()+"',");
+						}
+						
+						sw.append("],");
+						sw.newLine();
+					}
+					
+					sw.deindent();
+					sw.newLine();
+					sw.append("},");
+					sw.newLine();
+					
 					sw.deindent();
 					sw.newLine();
 					sw.append("},");
 					sw.newLine();
 				}
+				
+				for (int x=i+1; x<4; x++) {
+					sw.append("'weapon_"+x+"':None,");
+					sw.newLine();
+				}
+				
 				
 				sw.deindent();
 				sw.newLine();
