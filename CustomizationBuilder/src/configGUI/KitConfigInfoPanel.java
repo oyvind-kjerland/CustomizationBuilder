@@ -57,7 +57,7 @@ public class KitConfigInfoPanel extends AbstractConfigInfoPanel implements Actio
 		kitNameText.addActionListener(this);
 		kitNameText.addFocusListener(this);
 		kitNameText.setPreferredSize(infoFieldSize);
-		
+		kitNameText.setEditable(false);
 		
 		// Kit Type
 		JLabel kitTypeLabel = makeLabel("Type:");

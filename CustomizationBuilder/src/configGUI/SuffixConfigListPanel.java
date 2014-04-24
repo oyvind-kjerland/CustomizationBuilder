@@ -25,7 +25,6 @@ public class SuffixConfigListPanel extends AbstractConfigListPanel<SuffixConfig>
 		suffixConfig.setName("New Suffix");
 		
 		configListModel.addElement(suffixConfig);
-		
 		if (config != null) {
 			config.addSuffixConfig(suffixConfig);
 		}

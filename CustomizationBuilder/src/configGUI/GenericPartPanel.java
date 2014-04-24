@@ -18,18 +18,27 @@ import javax.swing.SwingUtilities;
 import config.Config;
 import config.PartConfig;
 import config.PartType;
+import config.SuffixConfig;
 import config.WeaponConfig;
 
 public class GenericPartPanel extends JPanel {
 
 	
 	private WeaponConfig model;
+	private SuffixConfig suffixModel;
+	private boolean isSuffix = false;
 	
 	private JList<PartConfig> list;
 	private DefaultListModel<PartConfig> listModel;
 	
 	
 	private PartType type;
+	
+	
+	public GenericPartPanel(PartType type, boolean isSuffix) {
+		this(type);
+		this.isSuffix = isSuffix;
+	}
 	
 	public GenericPartPanel(PartType type) {
 		
@@ -69,6 +78,16 @@ public class GenericPartPanel extends JPanel {
 		
 	}
 	
+	public void setSuffixModel(SuffixConfig suffixModel) {
+		this.suffixModel = suffixModel;
+		
+		if (suffixModel == null) return;
+		
+		listModel.removeAllElements();
+		for (PartConfig partConfig : suffixModel.getSkins()) {
+			listModel.addElement(partConfig);
+		}
+	}
 	
 	public void setModel(WeaponConfig model) {
 		this.model = model;
@@ -83,7 +102,7 @@ public class GenericPartPanel extends JPanel {
 	}
 	
 	public void showAddDialog() {
-		if (model == null) return;
+		if ((!isSuffix && model == null) || (isSuffix && suffixModel == null)) return;
 		
 		MainFrame mainFrame = (MainFrame)SwingUtilities.getWindowAncestor(this);
 		ConfigPanel configPanel = (ConfigPanel)getParent().getParent().getParent().getParent();
@@ -97,7 +116,11 @@ public class GenericPartPanel extends JPanel {
 		if (listModel.contains(partConfig)) return;
 		
 		listModel.addElement(partConfig);
-		model.addPartConfig(partConfig);
+		if (isSuffix) {
+			suffixModel.addSkin(partConfig);
+		} else {
+			model.addPartConfig(partConfig);
+		}
 		
 	}
 	
@@ -107,7 +130,12 @@ public class GenericPartPanel extends JPanel {
 		
 		PartConfig partConfig = list.getSelectedValue();
 		listModel.removeElement(partConfig);
-		model.removePartConfig(partConfig);
+		
+		if (isSuffix) {
+			suffixModel.removeSkin(partConfig);
+		} else {
+			model.removePartConfig(partConfig);
+		}
 	}
 	
 	public PartType getType() {
